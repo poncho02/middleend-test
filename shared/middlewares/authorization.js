@@ -11,6 +11,7 @@ const authorization = (req, res, next) => {
   const token = req.headers?.["x-auth-token"];
 
   if (!token || (token !== tokens.real && token !== tokens.mock)) {
+    // #swagger.responses[401]
     customError(res, "unauthorized", 401);
   }
 

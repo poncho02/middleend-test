@@ -6,8 +6,13 @@ const { customError } = require("../../exceptions/customError");
 const { axiosData } = require("../../shared/helpers/axiosData");
 const { itemTransform } = require("../helpers/items");
 
-async function getItem(req, res) {
+const getItem = async (req, res) => {
   try {
+    // #swagger.tags = ['Items']
+    // #swagger.description = 'endpoint to obtain the details of a specific MeLi item'
+
+    // #swagger.parameters['id'] = { description: 'Id corresponding to the item in the MeLi catalog' }
+
     const id = req.params.id;
 
     const [data, description] = await Promise.allSettled([
@@ -38,12 +43,19 @@ async function getItem(req, res) {
       },
     };
 
+    /* 
+      #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Items" },
+               description: 'Resultado' 
+      } 
+    */
+
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    // customError(res, me);
+    // #swagger.responses[500]
   }
-}
+};
 
 module.exports = {
   getItem,
