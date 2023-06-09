@@ -1,7 +1,8 @@
+const { sortDataByField } = require("../../shared/helpers/utils");
 const itemMock = {
   author: {
-    name: "",
-    lastname: "",
+    name: "Edgar",
+    lastname: "Salgado",
   },
   item: {
     id: "",
@@ -64,6 +65,12 @@ const middlewareSearchMock = (req, res, next) => {
     }
 
     response.items = items;
+
+    if (req.query?.sort) {
+      const _sort = req.query.sort.split("_")[1];
+      response.items = sortDataByField(items, _sort, "price.amount");
+    }
+
     res.status(200).json(response);
   }
 

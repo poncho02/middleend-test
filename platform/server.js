@@ -2,7 +2,9 @@
 
 const express = require("express");
 const cors = require("cors");
+
 const router = require("../routes/router");
+const CONFIG = require("./config");
 const { notFoundHandler } = require("../exceptions/notFoundHandler");
 const { errorHandler } = require("../exceptions/errorHandler");
 const { loggerMiddleware } = require("../shared/middlewares/loggerMiddleware");
@@ -10,7 +12,7 @@ const { loggerMiddleware } = require("../shared/middlewares/loggerMiddleware");
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT;
+    this.port = CONFIG.PORT;
 
     this.middlewares();
 
@@ -25,14 +27,9 @@ class Server {
     this.app.use(express.urlencoded({ extended: false }));
 
     this.app.use((req, res, next) => {
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, x-auth-token"
-      );
+      res.setHeader("Access-Control-Allow-Headers", "x-auth-token");
       res.setHeader("Access-Control-Allow-Methods", "GET");
       res.setHeader("Allow", "GET");
-
       next();
     });
 

@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-async function axiosData(url) {
+const axiosData = async (url) => {
   try {
     const response = await axios(url);
     return response;
@@ -13,7 +13,7 @@ async function axiosData(url) {
         "Error",
     };
   }
-}
+};
 
 module.exports = {
   axiosData,
