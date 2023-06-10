@@ -47,4 +47,28 @@ module.exports = {
     },
     currency_id: "MXN",
   },
+  arrayToSort: [
+    {
+      item: 1,
+      price: {
+        amount: 10,
+      },
+      qty: 29,
+    },
+    {
+      item: 4,
+      price: {
+        amount: 20,
+      },
+      qty: 122,
+    },
+    {
+      item: 9,
+      price: {
+        amount: 8,
+      },
+      qty: 89,
+    },
+  ],
+  mockUrl: "https://example.com",
 };

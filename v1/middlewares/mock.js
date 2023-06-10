@@ -71,7 +71,7 @@ const middlewareSearchMock = (req, res, next) => {
       response.items = sortDataByField(items, _sort, "price.amount");
     }
 
-    res.status(200).json(response);
+    res.status(200).json(response).end();
   }
 
   next();

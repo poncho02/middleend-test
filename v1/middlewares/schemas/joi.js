@@ -4,11 +4,12 @@ const itemParamsSchema = Joi.object({
   params: {
     id: Joi.string()
       .min(10)
-      .pattern(new RegExp(/^(MLA|MLM|MLB)/i))
+      .pattern(new RegExp(/^(MLA|MLM|MLB)\d+$/i))
       .required()
       .messages({
         "string.min": "Must have at least {#limit} characters",
-        "string.pattern.base": "Must be from a valid site: ( MLA, MLM, MLB )",
+        "string.pattern.base":
+          "Must be a valid id from the sites: (MLA,MLB,MLM)",
       }),
   },
 }).unknown(true);

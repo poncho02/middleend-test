@@ -12,35 +12,22 @@ const { itemTransform, categoriesTransform } = require("../v1/helpers/items");
 
 const mockResponses = require("./mock.responses");
 
-const arrayToSort = [
-  {
-    item: 1,
-    price: {
-      amount: 10,
-    },
-    qty: 29,
-  },
-  {
-    item: 4,
-    price: {
-      amount: 20,
-    },
-    qty: 122,
-  },
-  {
-    item: 9,
-    price: {
-      amount: 8,
-    },
-    qty: 89,
-  },
-];
+jest.mock("ioredis", () => {
+  return jest.fn().mockImplementation(() => ({
+    set: jest.fn(() => true),
+    get: jest.fn(() => null),
+  }));
+});
 
 describe("Health Endpoint", () => {
   let server;
 
   beforeEach(() => {
     server = new Server();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   it("should respond with a 200 statusCode", async () => {
@@ -70,8 +57,11 @@ describe("Test Helpers", () => {
     mock.restore();
   });
 
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   it("axiosData success", async () => {
-    const mockUrl = "https://example.com";
     const mockResponse = {
       status: 200,
       data: {
@@ -79,19 +69,17 @@ describe("Test Helpers", () => {
       },
     };
 
-    mock.onAny(mockUrl).reply(mockResponse.status, mockResponse);
+    mock.onAny(mockResponses.mockUrl).reply(mockResponse.status, mockResponse);
 
-    const result = await axiosData(mockUrl);
+    const result = await axiosData(mockResponses.mockUrl);
     expect(result.status).toBe(200);
     expect(result.data).toStrictEqual(mockResponse);
   });
 
   it("axiosData error by 502 code", async () => {
-    const mockUrl = "https://example.com";
+    mock.onAny(mockResponses.mockUrl).reply(502);
 
-    mock.onAny(mockUrl).reply(502);
-
-    const result = await axiosData(mockUrl);
+    const result = await axiosData(mockResponses.mockUrl);
 
     expect(result).toStrictEqual({
       status: 502,
@@ -100,11 +88,9 @@ describe("Test Helpers", () => {
   });
 
   it("axiosData error by 401 code", async () => {
-    const mockUrl = "https://example.com";
+    mock.onAny(mockResponses.mockUrl).reply(401);
 
-    mock.onAny(mockUrl).reply(401);
-
-    const result = await axiosData(mockUrl);
+    const result = await axiosData(mockResponses.mockUrl);
 
     expect(result).toStrictEqual({
       status: 401,
@@ -113,11 +99,9 @@ describe("Test Helpers", () => {
   });
 
   it("axiosData error by 404 code", async () => {
-    const mockUrl = "https://example.com";
+    mock.onAny(mockResponses.mockUrl).reply(404, { error: "not_found" });
 
-    mock.onAny(mockUrl).reply(404, { error: "not_found" });
-
-    const result = await axiosData(mockUrl);
+    const result = await axiosData(mockResponses.mockUrl);
     expect(result).toStrictEqual({
       status: 404,
       message: "not_found",
@@ -125,7 +109,11 @@ describe("Test Helpers", () => {
   });
 
   it("sortDataByField orderyBy ASC", async () => {
-    const results = sortDataByField(arrayToSort, "asc", "price.amount");
+    const results = sortDataByField(
+      mockResponses.arrayToSort,
+      "asc",
+      "price.amount"
+    );
 
     expect(results[0].price.amount).toBe(8);
     expect(results[1].price.amount).toBe(10);
@@ -133,7 +121,7 @@ describe("Test Helpers", () => {
   });
 
   it("sortDataByField orderyBy DESC", async () => {
-    const results = sortDataByField(arrayToSort, "desc", "qty");
+    const results = sortDataByField(mockResponses.arrayToSort, "desc", "qty");
 
     expect(results[0].qty).toBe(122);
     expect(results[1].qty).toBe(89);

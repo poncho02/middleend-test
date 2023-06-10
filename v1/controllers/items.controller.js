@@ -4,6 +4,7 @@ const { processDescription } = require("../helpers/description");
 const { URL_MELI } = require("../constants/index");
 const { customError } = require("../../exceptions/customError");
 const { axiosData } = require("../../shared/helpers/axiosData");
+const cache = require("../../shared/helpers/cache");
 const { itemTransform } = require("../helpers/items");
 
 const getItem = async (req, res) => {
@@ -47,6 +48,7 @@ const getItem = async (req, res) => {
                description: 'Resultado' 
       } 
     */
+  await cache.set(req, response);
 
   res.status(200).json(response);
 };

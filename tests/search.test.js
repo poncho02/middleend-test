@@ -11,12 +11,23 @@ jest.mock("../shared/helpers/axiosData", () => {
   };
 });
 
+jest.mock("ioredis", () => {
+  return jest.fn().mockImplementation(() => ({
+    set: jest.fn(() => true),
+    get: jest.fn(() => null),
+  }));
+});
+
 describe("Search Endpoint", () => {
   let postman;
 
   beforeAll(async () => {
     let _server = new Server();
     postman = request(_server.app);
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   it("should respond with a 401 status code", async () => {

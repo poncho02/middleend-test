@@ -12,8 +12,8 @@ const { loggerMiddleware } = require("../shared/middlewares/loggerMiddleware");
 class Server {
   constructor() {
     this.app = express();
-    this.port = CONFIG.PORT;
 
+    this.port = CONFIG.PORT;
     this.middlewares();
 
     this.routes();
@@ -30,6 +30,7 @@ class Server {
       res.setHeader("Access-Control-Allow-Headers", "x-auth-token");
       res.setHeader("Access-Control-Allow-Methods", "GET");
       res.setHeader("Allow", "GET");
+      res.setHeader("x-cache-timeout", "15 minutes");
       next();
     });
 
