@@ -12,7 +12,7 @@ const authorization = (req, res, next) => {
 
   if (!token || (token !== tokens.real && token !== tokens.mock)) {
     // #swagger.responses[401]
-    customError(res, "unauthorized", 401);
+    return customError(res, "unauthorized", 401);
   }
 
   req.isRequestMock = token === tokens.mock;

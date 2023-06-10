@@ -59,7 +59,6 @@ const categoriesTransform = (filters) => {
 
     return categories;
   } catch (error) {
-    console.log(error);
     return [];
   }
 };

@@ -35,7 +35,7 @@ const middlewareItemsMock = (req, res, next) => {
   if (req.isRequestMock) {
     const response = itemMock;
     response.item.id = req.params.id;
-    res.status(200).json(response);
+    res.status(200).json(response).end();
   }
 
   next();

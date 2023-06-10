@@ -6,7 +6,7 @@ const interceptor = (res, send) => (content) => {
   res.send(content);
 };
 
-const loggerMiddleware = (req, res = response, next) => {
+const loggerMiddleware = (req, res, next) => {
   console.log("Request received:", {
     Method: req.method,
     URL: req.url,
