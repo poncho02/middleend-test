@@ -41,6 +41,9 @@ const search = async (req, res) => {
   }
 
   const results = await axiosData(url);
+  if (!("data" in results)) {
+    return customError(res, results.message, results.status);
+  }
 
   const { data } = results;
 

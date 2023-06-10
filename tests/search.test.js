@@ -88,4 +88,20 @@ describe("Search Endpoint", () => {
     expect(response.body.categories).toStrictEqual(["category1", "category2"]);
     expect(response.body.items[0].id).toBe("MLB2982363272");
   });
+
+  it("should respond with a 502 statusCode by bad gateway", async () => {
+    axiosData.mockImplementationOnce(() =>
+      Promise.resolve({
+        status: 502,
+        message: "502 bad gateway",
+      })
+    );
+
+    const response = await postman
+      .get("/v1/search/MLA/tenis")
+      .set("x-auth-token", mockResponses.tokenReal)
+      .send();
+
+    expect(response.statusCode).toBe(502);
+  });
 });
