@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "autogen" : "node swagger.js"
+    "test": "jest --detectOpenHandles --coverage --forceExit --runInBand --colors",
+    "autogen": "node swagger.js"
   },
   "keywords": [],
   "author": "Edgar Salgado",
@@ -19,5 +19,10 @@
     "swagger-autogen": "^2.23.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "axios-mock-adapter": "^1.21.4",
+    "supertest": "^6.3.3"
   }
 }
