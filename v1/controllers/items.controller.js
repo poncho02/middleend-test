@@ -17,8 +17,7 @@ const getItem = async (req, res) => {
     axiosData(`${URL_MELI}/items/${id}`),
     axiosData(`${URL_MELI}/items/${id}/description`),
   ]);
-  console.log("data", data);
-  console.log("description", description);
+
   if (data.status === "rejected" || data.value.status !== 200) {
     return customError(res, data.value.message, data.value.status);
   }
