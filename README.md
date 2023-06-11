@@ -116,4 +116,8 @@ Si deseas realizar las pruebas desde postman, en la siguiente ruta encontrarás 
 https://github.com/poncho02/middleend-test/tree/master/documentation/postman
 ```
 
+Diagrama de secuencia:
+
+![UML sequence](documentation/uml-middleend-test.png)
+
 ### Terminado
