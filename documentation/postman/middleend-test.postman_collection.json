@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "d0cc8d87-fe21-48bd-8885-052ea67d7316",
+		"name": "middleend-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1719667"
+	},
+	"item": [
+		{
+			"name": "Item details",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "55a4639f-55e8-4e14-a6cc-b79977b20a4e",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/items/MLA12143364612",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"items",
+						"MLA12143364612"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search items",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "55a4639f-55e8-4e14-a6cc-b79977b20a4e",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/search/MLA/tenis blancos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"search",
+						"MLA",
+						"tenis blancos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
